@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+.white {
+  background-color:white;
+}
+.col-sm-4{
+	display:inline-block;
+	border:3px solid black;
+}
+.col-sm-2{
+	display:inline-block
+}
+body{
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-size: 100% 100%;
+		background-image:url('https://scontent.faep31-1.fna.fbcdn.net/v/t39.30808-6/326770374_442364958018862_8400073370205021921_n.jpg?stp=dst-jpg_p180x540&_nc_cat=100&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeF6ifQEs6h6sjD_7ahnid1oL7cpsHwjAVUvtymwfCMBVRg_VcuRl4f9ZVfeI-3jw8c&_nc_ohc=N6r_MZCfIcUAX9cwkm4&_nc_ht=scontent.faep31-1.fna&oh=00_AfCCJ5lVmvaIviggWIGvO8oxS05aAyIyWKFb6o_2WxSFVQ&oe=63D7C525')
+} 
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+
+</style>
+<head>
+<title>
+Calculadora de intereses 
+</title>
+
+  <meta charset="UTF-8">
+  <meta name="description" content="Free Web tutorials">
+  <meta name="keywords" content="HTML, CSS, JavaScript">
+  <meta name="author" content="John Doe">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+	<div class="container col-lg-12">
+		
+	
+		
+<!-- compuesta diario -->
+	
+		<div class="col-sm-4" id="diario-compuesto">
+			<div style="display:block">
+
+				<h1 style="background-color:white">Intereses diarios compuestos</h1>
+
+				<div>
+				<input placeholder="deposito inicial" id="pesos"></input>
+				<input placeholder="interes anual" id="interes"></input>
+				<input placeholder="dias depositados" id="dias"></input>
+				</div>
+				<br><br>
+				<div>
+					<button onclick="Calcular()">Calcular</button>
+				</div>
+				<br><br>
+				<div style="border-style: double;width: max-content; background-color:white">
+					<span>ganancia por los intereses: </span>
+					<span value=""; id="ganancia_total"></span>
+				</div>
+
+				<div style="border-style: double; width: max-content; background-color:white">
+					<span>total: </span>
+					<span value=""; id="total"></span>
+				</div>
+	
+
+				<table style="background-color:white">
+					<thead>
+						<th>dia</th>
+						<th>interes acumulado</th>
+					</thead>
+					<tbody id="intereses_diarios_acumulados">
+					</tbody>	
+				</table>
+			</div>
+		</div>
+
+
+<!--  clasico dias -->
+		
+	<div class="col-sm-2">
+							<select onclick="Borrar" placeholder="meses depositados" id="borrador">							
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							</select>
+	
+	
+	</div>
+
+		<div class="col-sm-4" id="clasico-dias">
+			<div style="display:block">
+				<h1 style="background-color:white">Intereses clasicos</h1>
+				<div>
+					<input placeholder="deposito inicial" id="pesos_clasico"></input>
+					<input placeholder="interes anual" id="interes_clasico"></input>
+					<input placeholder="dias depositados" id="dias_clasico"></input>
+				</div>
+				<br><br>
+				<div>
+					<button onclick="Calcular_clasico()">Calcular</button>
+				</div>
+				<br><br>
+				<div style="border-style: double;width: max-content;background-color:white">
+					<span>ganancia por los intereses: </span>
+					<span value=""; id="ganancia_total_clasico"></span>
+				</div>
+				<div style="border-style: double; width: max-content;background-color:white">
+					<span>total: </span><span value=""; id="total_clasico"></span>
+					
+				</div>
+				
+			</div>
+		</div>
+
+
+<!--  compuesto mensual -->
+
+		<div class="col-sm-4" id="compuesto-mensual">
+			<div style="display:block">
+				<h1 style="background-color:white">Intereses compuestos mensuales</h1>
+				<div>
+					<input placeholder="deposito inicial" id="pesos_compuesto"></input>
+					<input placeholder="interes anual" id="interes_compuesto"></input>
+					<div class="dropdown">
+						<select placeholder="meses depositados" id="meses_compuesto">							
+							<option value="0">meses</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							<option value="13">13</option>
+							<option value="14">14</option>
+							<option value="15">15</option>
+							<option value="16">16</option>
+							<option value="17">17</option>
+							<option value="18">18</option>
+							<option value="19">19</option>
+							<option value="20">20</option>
+							<option value="21">21</option>
+							<option value="22">22</option>
+							<option value="23">23</option>
+							<option value="24">24</option>
+							<option value="25">25</option>
+							<option value="26">26</option>
+							<option value="27">27</option>
+							<option value="28">28</option>
+							<option value="29">29</option>
+							<option value="30">30</option>
+							<option value="31">31</option>
+							<option value="32">32</option>
+							<option value="33">33</option>
+							<option value="34">34</option>
+							<option value="35">35</option>
+							<option value="36">36</option>
+							<option value="37">37</option>
+							<option value="38">38</option>
+							<option value="39">39</option>
+							<option value="40">40</option>
+							<option value="41">41</option>
+							<option value="42">42</option>
+							<option value="43">43</option>
+							<option value="44">44</option>
+							<option value="45">45</option>
+							<option value="46">46</option>
+							<option value="47">47</option>
+							<option value="48">48</option>
+							<option value="49">49</option>
+							<option value="50">50</option>
+							<option value="51">51</option>
+							<option value="52">52</option>
+							<option value="53">53</option>
+							<option value="54">54</option>
+							<option value="55">55</option>
+							<option value="56">56</option>
+							<option value="57">57</option>
+							<option value="58">58</option>
+							<option value="59">59</option>
+							<option value="60">60</option>
+						</select>
+					</div>
+					<input placeholder="cuota" id="cuota"></input>
+					<input placeholder="ingresos nuevos" id="ingresosnuevos"></input>
+				</div>
+				<br><br>
+				<div>
+					<button onclick="Calcular_compuesto()">Calcular</button>
+				</div>
+				<br><br>
+				<div style="border-style: double;width: max-content;background-color:white">
+					<span>ganancia por los intereses: </span>
+					<span value=""; id="ganancia_total_compuesto"></span>
+				</div>
+				<div style="border-style: double;width: max-content;background-color:white">
+					<span>nuevos depositos acumulados: </span>
+					<span value=""; id="nuevo_deposito_total_compuesto"></span>
+				</div>
+				<div style="border-style: double; width: max-content;background-color:white">
+					<span>total: </span><span value=""; id="total_compuesto"></span>
+				</div>
+				<table style="background-color:white">
+					<thead>
+						<th>mes</th>
+						<th>interes acumulado</th>
+						<th>cuota</th>
+					</thead>
+					<tbody id="intereses_mensuales_acumulados">
+					</tbody>	
+				</table>
+			</div>
+		</div>
+		
+<script>
+--> diara compuesta
+function Calcular() {
+
+var pesos_inicial = parseFloat(document.getElementById("pesos").value);
+var interes = parseFloat(document.getElementById("interes").value);
+var dias = parseFloat(document.getElementById("dias").value);
+var interes_diario_inicial = parseFloat((((interes*pesos_inicial)/100)/365));
+var pesos_acumulado = 0;
+var interes_nuevo = 0;
+var ganancia_total = 0;
+var total = 0;
+var i = 1;
+var cuota = parseFloat(document.getElementById("cuota").value);
+var ingresos_nuevos = parseFloat(document.getElementById("ingresosnuevos").value);
+
+pesos_acumulado = pesos_inicial + interes_diario_inicial;
+console.log(pesos_acumulado);
+var Table = document.getElementById("intereses_diarios_acumulados");
+Table.innerHTML = "";
+	
+	while (i <= dias){
+
+
+
+
+	if (i == 1){
+
+  var table = document.getElementById("intereses_diarios_acumulados");
+  var row = table.insertRow(-1);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  cell1.innerHTML = i
+  cell2.innerHTML = interes_diario_inicial.toFixed(2);
+  i++;
+}else{
+  var table = document.getElementById("intereses_diarios_acumulados");
+  var row = table.insertRow(-1);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  
+	interes_nuevo = (((interes*pesos_acumulado)/100)/365);
+	pesos_acumulado = pesos_acumulado+interes_nuevo ;
+	cell1.innerHTML = i
+	cell2.innerHTML = interes_nuevo.toFixed(2);
+  
+
+
+  i++
+  
+  console.log(pesos_acumulado);
+  console.log(interes_nuevo);
+}
+total= pesos_acumulado.toFixed(2);
+ganancia_total = (pesos_acumulado - pesos_inicial).toFixed(2);	
+document.getElementById("ganancia_total").innerHTML = "$" + ganancia_total;
+document.getElementById("total").innerHTML = "$" + total;
+
+
+}}
+</script>		
+<script>
+--> mensual clasica
+function Calcular_clasico() {
+
+var pesos_inicial = parseFloat(document.getElementById("pesos_clasico").value);
+var interes = parseFloat(document.getElementById("interes_clasico").value);
+var dias = parseFloat(document.getElementById("dias_clasico").value);
+
+var interes_total = 0;
+var ganancia_total = 0;
+
+
+
+interes_total = parseFloat(((((interes*pesos_inicial)/100)/365)*dias).toFixed(2));
+ganancia_total = (pesos_inicial + interes_total).toFixed(2);
+ document.getElementById("ganancia_total_clasico").innerHTML = "$" + interes_total;
+document.getElementById("total_clasico").innerHTML = "$" + ganancia_total; 
+}
+</script>
+<script>
+function Calcular_compuesto() {
+
+var pesos_inicial = parseFloat(document.getElementById("pesos_compuesto").value);
+var interes = parseFloat(document.getElementById("interes_compuesto").value);
+var meses = document.getElementById("meses_compuesto").value;
+var interes_mensual_inicial = parseFloat((((interes*pesos_inicial)/100)/12));
+var pesos_acumulado = 0;
+var interes_nuevo = 0;
+var ganancia_total = 0;
+var total = 0;
+var i = 1;
+var cuota = parseFloat(document.getElementById("cuota").value);
+var ingresos_nuevos = parseFloat(document.getElementById("ingresosnuevos").value);
+
+var contador_i = 0;
+
+pesos_acumulado = pesos_inicial + interes_mensual_inicial;
+console.log(pesos_acumulado);
+var Table = document.getElementById("intereses_mensuales_acumulados");
+Table.innerHTML = "";
+	
+	while (i <= meses){
+console.log(i);
+
+
+
+	if (i == 1){
+
+  var table = document.getElementById("intereses_mensuales_acumulados");
+  var row = table.insertRow(-1);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  var cell3 = row.insertCell(2);
+  cell1.innerHTML = i;
+  cell2.innerHTML = interes_mensual_inicial.toFixed(2);
+  cell3.innerHTML = "0.00";
+  i++;
+}else{
+  var table = document.getElementById("intereses_mensuales_acumulados");
+  var row = table.insertRow(-1);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  var cell3 = row.insertCell(2);
+	 
+
+	pesos_acumulado = pesos_acumulado+interes_nuevo-cuota+ingresos_nuevos ;
+	contador_i++;
+	console.log("ingresos nuevos cargados: " + contador_i);
+	interes_nuevo = (((interes*pesos_acumulado)/100)/12);
+	cell1.innerHTML = i
+	cell2.innerHTML = interes_nuevo.toFixed(2);
+	cell3.innerHTML = cuota.toFixed(2);
+  i++;
+
+
+ 
+  
+  console.log(pesos_acumulado);
+  console.log(interes_nuevo);
+}
+console.log(i);
+console.log(meses);
+total= pesos_acumulado.toFixed(2);
+ganancia_total_compuesto = (pesos_acumulado - pesos_inicial - (ingresos_nuevos*(i-2))).toFixed(2);	
+document.getElementById("ganancia_total_compuesto").innerHTML = "$" + ganancia_total_compuesto;
+document.getElementById("nuevo_deposito_total_compuesto").innerHTML = "$" + ingresos_nuevos*(i-2);
+document.getElementById("total_compuesto").innerHTML = "$" + total;
+
+}}
+</script>
+<!--<script>
+var metodo = 1;
+function Elcoso(){
+
+metodo = document.getElementById("metodo").value;
+console.log(metodo.value);
+			if(metodo == 1){
+				document.getElementById("diario-compuesto").attr("display:inline-block");
+				document.getElementById("diario-compuesto").setAttribute("display","inline-block");
+				console.log(metodo.value);
+
+			}
+			if(metodo == 2){
+				 document.getElementById("clasico-dias").attr("display:inline-block");
+				 console.log(metodo.value);
+
+			}
+			if(metodo == 3){
+				document.getElementById("compuesto-mensual").attr("display:inline-block");
+				console.log(metodo.value);
+
+			}else{ 
+
+							console.log(metodo.value);
+				}	
+
+}
+
+</script> -->
+
+
+<script>
+
+function Borrar(){
+console.log("sarasa");
+
+}
+
+</script>
+		
+
+	</div>
+
+</body>
+</html>

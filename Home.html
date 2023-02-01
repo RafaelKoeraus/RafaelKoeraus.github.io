@@ -100,11 +100,11 @@ Calculadora de intereses
 <!--  clasico dias -->
 		
 	<div class="col-sm-2">
-					<!-- 		<select onclick="Borrar" placeholder="meses depositados" id="borrador">							
+							<select onclick="Borrar" placeholder="meses depositados" id="borrador">							
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
-							</select> -->
+							</select>
 	
 	
 	</div>
@@ -333,7 +333,7 @@ var total = 0;
 var i = 1;
 var cuota = parseFloat(document.getElementById("cuota").value);
 var ingresos_nuevos = parseFloat(document.getElementById("ingresosnuevos").value);
-
+var interes_acumulado = 0;
 var contador_i = 0;
 
 pesos_acumulado = pesos_inicial + interes_mensual_inicial;
@@ -356,6 +356,7 @@ console.log(i);
   cell1.innerHTML = i;
   cell2.innerHTML = interes_mensual_inicial.toFixed(2);
   cell3.innerHTML = "0.00";
+  interes_acumulado = (((interes*pesos_acumulado)/100)/12);
   i++;
 }else{
   var table = document.getElementById("intereses_mensuales_acumulados");
@@ -365,10 +366,15 @@ console.log(i);
   var cell3 = row.insertCell(2);
 	 
 
-	pesos_acumulado = pesos_acumulado+interes_nuevo-cuota+ingresos_nuevos ;
+	pesos_acumulado = pesos_acumulado-cuota+ingresos_nuevos ;
 	contador_i++;
-	console.log("ingresos nuevos cargados: " + contador_i);
+	console.log("ingresos nuevos cargados: " + contador_i + " + $" + ingresos_nuevos);
 	interes_nuevo = (((interes*pesos_acumulado)/100)/12);
+	interes_acumulado = interes_acumulado + interes_nuevo;
+	pesos_acumulado = pesos_acumulado + interes_nuevo;
+	
+  console.log("pesos acumulados antes del interes = " + pesos_acumulado);
+
 	cell1.innerHTML = i
 	cell2.innerHTML = interes_nuevo.toFixed(2);
 	cell3.innerHTML = cuota.toFixed(2);
@@ -376,12 +382,12 @@ console.log(i);
 
 
  
-  
-  console.log(pesos_acumulado);
-  console.log(interes_nuevo);
+  console.log("interes nuevo= " + interes_nuevo);  
+  console.log("pesos acumulados despues del interes = " + pesos_acumulado);
+  console.log("interes acumulado= " + interes_acumulado);
+
 }
-console.log(i);
-console.log(meses);
+pesos_acumulado = pesos_acumulado - cuota;
 total= pesos_acumulado.toFixed(2);
 ganancia_total_compuesto = (pesos_acumulado - pesos_inicial - (ingresos_nuevos*(i-2))).toFixed(2);	
 document.getElementById("ganancia_total_compuesto").innerHTML = "$" + ganancia_total_compuesto;

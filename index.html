@@ -65,9 +65,9 @@ Calculadora de intereses
 				<h1 style="background-color:white">Intereses diarios compuestos</h1>
 
 				<div>
-				<input placeholder="deposito inicial" id="pesos"></input>
-				<input placeholder="interes anual" id="interes"></input>
-				<input placeholder="dias depositados" id="dias"></input>
+				<input placeholder="deposito inicial" id="pesos" onfocusout="numberToString(this.value, this)"></input>
+				<input placeholder="interes anual" id="interes" onfocusout="numberToString(this.value, this)"></input>
+				<input placeholder="dias depositados" id="dias" onfocusout="numberToString(this.value, this)"></input>
 				</div>
 				<br><br>
 				<div>
@@ -76,12 +76,12 @@ Calculadora de intereses
 				<br><br>
 				<div style="border-style: double;width: max-content; background-color:white">
 					<span>ganancia por los intereses: </span>
-					<span value=""; id="ganancia_total"></span>
+					<span id="ganancia_total"></span>
 				</div>
 
 				<div style="border-style: double; width: max-content; background-color:white">
 					<span>total: </span>
-					<span value=""; id="total"></span>
+					<span id="total"></span>
 				</div>
 	
 
@@ -240,20 +240,20 @@ Calculadora de intereses
 		</div>
 		
 <script>
---> diara compuesta
+//--> diara compuesta
 function Calcular() {
 
-var pesos_inicial = parseFloat(document.getElementById("pesos").value);
-var interes = parseFloat(document.getElementById("interes").value);
-var dias = parseFloat(document.getElementById("dias").value);
+var pesos_inicial = parseFloat(document.getElementById("pesos").value.replaceAll(',', ''));
+var interes = parseFloat(document.getElementById("interes").value.replaceAll(',', ''));
+var dias = parseFloat(document.getElementById("dias").value.replaceAll(',', ''));
 var interes_diario_inicial = parseFloat((((interes*pesos_inicial)/100)/365));
 var pesos_acumulado = 0;
 var interes_nuevo = 0;
 var ganancia_total = 0;
 var total = 0;
 var i = 1;
-var cuota = parseFloat(document.getElementById("cuota").value);
-var ingresos_nuevos = parseFloat(document.getElementById("ingresosnuevos").value);
+var cuota = parseFloat(document.getElementById("cuota").value.replaceAll(',', ''));
+var ingresos_nuevos = parseFloat(document.getElementById("ingresosnuevos").value.replaceAll(',', ''));
 
 pesos_acumulado = pesos_inicial + interes_diario_inicial;
 console.log(pesos_acumulado);
@@ -294,19 +294,19 @@ Table.innerHTML = "";
 }
 total= pesos_acumulado.toFixed(2);
 ganancia_total = (pesos_acumulado - pesos_inicial).toFixed(2);	
-document.getElementById("ganancia_total").innerHTML = "$" + ganancia_total;
-document.getElementById("total").innerHTML = "$" + total;
+document.getElementById("ganancia_total").innerHTML = "$" + numberToString(ganancia_total);
+document.getElementById("total").innerHTML = "$" + numberToString(total);
 
 
 }}
 </script>		
 <script>
---> mensual clasica
+//--> mensual clasica
 function Calcular_clasico() {
 
-var pesos_inicial = parseFloat(document.getElementById("pesos_clasico").value);
-var interes = parseFloat(document.getElementById("interes_clasico").value);
-var dias = parseFloat(document.getElementById("dias_clasico").value);
+var pesos_inicial = parseFloat(document.getElementById("pesos_clasico").value.replaceAll(',', ''));
+var interes = parseFloat(document.getElementById("interes_clasico").value.replaceAll(',', ''));
+var dias = parseFloat(document.getElementById("dias_clasico").value.replaceAll(',', ''));
 
 var interes_total = 0;
 var ganancia_total = 0;
@@ -315,24 +315,24 @@ var ganancia_total = 0;
 
 interes_total = parseFloat(((((interes*pesos_inicial)/100)/365)*dias).toFixed(2));
 ganancia_total = (pesos_inicial + interes_total).toFixed(2);
- document.getElementById("ganancia_total_clasico").innerHTML = "$" + interes_total;
-document.getElementById("total_clasico").innerHTML = "$" + ganancia_total; 
+ document.getElementById("ganancia_total_clasico").innerHTML = "$" + numberToString(interes_total);
+document.getElementById("total_clasico").innerHTML = "$" + numberToString(ganancia_total); 
 }
 </script>
 <script>
 function Calcular_compuesto() {
 
-var pesos_inicial = parseFloat(document.getElementById("pesos_compuesto").value);
-var interes = parseFloat(document.getElementById("interes_compuesto").value);
-var meses = document.getElementById("meses_compuesto").value;
+var pesos_inicial = parseFloat(document.getElementById("pesos_compuesto").value.replaceAll(',', ''));
+var interes = parseFloat(document.getElementById("interes_compuesto").value.replaceAll(',', ''));
+var meses = document.getElementById("meses_compuesto").value.replaceAll(',', '');
 var interes_mensual_inicial = parseFloat((((interes*pesos_inicial)/100)/12));
 var pesos_acumulado = 0;
 var interes_nuevo = 0;
 var ganancia_total = 0;
 var total = 0;
 var i = 1;
-var cuota = parseFloat(document.getElementById("cuota").value);
-var ingresos_nuevos = parseFloat(document.getElementById("ingresosnuevos").value);
+var cuota = parseFloat(document.getElementById("cuota").value.replaceAll(',', ''));
+var ingresos_nuevos = parseFloat(document.getElementById("ingresosnuevos").value.replaceAll(',', ''));
 var interes_acumulado = 0;
 var contador_i = 0;
 
@@ -390,9 +390,9 @@ console.log(i);
 pesos_acumulado = pesos_acumulado - cuota;
 total= pesos_acumulado.toFixed(2);
 ganancia_total_compuesto = (pesos_acumulado - pesos_inicial - (ingresos_nuevos*(i-2))).toFixed(2);	
-document.getElementById("ganancia_total_compuesto").innerHTML = "$" + ganancia_total_compuesto;
-document.getElementById("nuevo_deposito_total_compuesto").innerHTML = "$" + ingresos_nuevos*(i-2);
-document.getElementById("total_compuesto").innerHTML = "$" + total;
+document.getElementById("ganancia_total_compuesto").innerHTML = "$" + numberToString(ganancia_total_compuesto);
+document.getElementById("nuevo_deposito_total_compuesto").innerHTML = "$" + numberToString(ingresos_nuevos*(i-2));
+document.getElementById("total_compuesto").innerHTML = "$" + numberToString(total);
 
 }}
 </script>
@@ -436,7 +436,36 @@ console.log("sarasa");
 
 </script>
 		
+<script>
 
+ function numberToString(number, input){
+	
+	number = number.replaceAll(",","");
+	split = number.split('.')
+	number = split[0]
+	let number2 =number.split("").reverse().join("");
+	if (number.length >= 4 ){
+		contador = 0
+		numtotal = ""
+		i = 0;
+		for (let i of number2){
+			if (contador >= 3){ 
+				numtotal += ",";
+				contador = 0;
+			}
+			contador++;
+			numtotal += i
+	}
+	finalreverse = numtotal.split("").reverse().join("");
+	if (split[1]){finalreverse + "." + split[1]}
+
+	if (input){
+			input.value = finalreverse
+		} else {
+			return finalreverse
+		}
+}}
+</script>
 	</div>
 
 </body>
